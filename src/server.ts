@@ -9,8 +9,8 @@ import {
 import { env } from "./env"
 import { fastifySwagger } from "@fastify/swagger"
 import { fastifySwaggerUi } from "@fastify/swagger-ui"
-import { registerUserRoute } from "./routes/user"
-import { userLoginRoute } from "./routes/user-login"
+import { registerUserRoute } from "./routes/register-user-route"
+import { userLoginRoute } from "./routes/user-login-route"
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
