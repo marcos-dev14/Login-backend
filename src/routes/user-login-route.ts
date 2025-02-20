@@ -16,6 +16,9 @@ export const userLoginRoute: FastifyPluginAsyncZod = async (app) => {
       }),
       response: {
         201: z.object({
+          userId: z.string(),
+          name: z.string(),
+          email: z.string().email(),
           userToken: z.string()
         }),
       }
@@ -25,8 +28,13 @@ export const userLoginRoute: FastifyPluginAsyncZod = async (app) => {
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
-    const { userToken } = await userLogin({ name, email, password: hashedPassword })
+    const { userData } = await userLogin({ name, email, password: hashedPassword })
 
-    return reply.status(201).send({ userToken })
+    return reply.status(201).send({ 
+      name: userData.name, 
+      email: userData.email, 
+      userId: userData.userId, 
+      userToken: userData.userToken 
+    })
   })
 }

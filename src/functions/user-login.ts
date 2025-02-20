@@ -14,7 +14,7 @@ export async function userLogin({ name, email, password }: UserLoginParams) {
     where: {
       name,
       email
-    }
+    },
   })
 
   if (!user || !(bcrypt.compare(password, user.password))) {
@@ -23,7 +23,14 @@ export async function userLogin({ name, email, password }: UserLoginParams) {
 
   const token = jwt.sign({ userId: user.id }, env.JWT_SECRET, { expiresIn: '1h' })
 
-  return {
+  const userData = {
+    name: user.name,
+    email: user.email,
+    userId: user.id,
     userToken: token
+  }
+
+  return {
+    userData
   }
 }
