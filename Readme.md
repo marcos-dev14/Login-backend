@@ -38,6 +38,15 @@ Este é um projeto de estudo que implementa funcionalidades básicas de autentic
    npm run dev
    ```
 
+## 📜 Documentação com Swagger
+Este projeto utiliza **@fastify/swagger** e **@fastify/swagger-ui** para gerar automaticamente a documentação da API.
+
+- Após iniciar o servidor, acesse a documentação no navegador:
+  ```
+  http://localhost:3333/docs
+  ```
+- Lá, você poderá visualizar e testar todas as rotas disponíveis de forma interativa.
+
 ## 🛠 Tecnologias Utilizadas
 - Node.js
 - Fastify
@@ -45,6 +54,7 @@ Este é um projeto de estudo que implementa funcionalidades básicas de autentic
 - PostgreSQL
 - Docker
 - TypeScript
+- Swagger (para documentação da API)
 
 ## 📄 Licença
 Este projeto é apenas para fins de estudo e não possui licença específica.
