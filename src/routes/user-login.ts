@@ -1,10 +1,10 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod"
 import z from "zod"
-import { registerUser } from "../functions/register-user"
 import bcrypt from 'bcrypt'
+import { userLogin } from "../functions/user-login"
 
-export const registerUserRoute: FastifyPluginAsyncZod = async (app) => {
-  app.post('/register', {
+export const userLoginRoute: FastifyPluginAsyncZod = async (app) => {
+  app.post('/login', {
     schema: {
       summary: 'Rotas do usuário',
       description: 'Rota para criação de um novo usuário',
@@ -16,9 +16,7 @@ export const registerUserRoute: FastifyPluginAsyncZod = async (app) => {
       }),
       response: {
         201: z.object({
-          name: z.string(),
-          email: z.string().email(),
-          password: z.string().min(4),
+          userToken: z.string()
         }),
       }
     }
@@ -27,8 +25,8 @@ export const registerUserRoute: FastifyPluginAsyncZod = async (app) => {
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
-    const { user } = await registerUser({ name, email, password: hashedPassword })
+    const { userToken } = await userLogin({ name, email, password: hashedPassword })
 
-    return reply.status(201).send(user)
+    return reply.status(201).send({ userToken })
   })
 }
