@@ -11,6 +11,7 @@ import { fastifySwagger } from "@fastify/swagger"
 import { fastifySwaggerUi } from "@fastify/swagger-ui"
 import { registerUserRoute } from "./routes/register-user-route"
 import { userLoginRoute } from "./routes/user-login-route"
+import { getUserRoute } from "./routes/get-user-route"
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -37,6 +38,7 @@ app.register(fastifyCors, {
 
 app.register(registerUserRoute)
 app.register(userLoginRoute)
+app.register(getUserRoute)
 
 app.listen({ port: env.PORT }).then(() => {
   console.log('HTTP server running!')
