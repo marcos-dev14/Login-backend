@@ -1,5 +1,7 @@
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod"
 import z from "zod"
+import { registerUser } from "../functions/register-user"
+import bcrypt from 'bcrypt'
 
 export const user: FastifyPluginAsyncZod = async (app) => {
   app.post('/users', {
@@ -10,19 +12,23 @@ export const user: FastifyPluginAsyncZod = async (app) => {
       body: z.object({
         name: z.string(),
         email: z.string().email(),
+        password: z.string().min(4),
       }),
       response: {
         201: z.object({
           name: z.string(),
           email: z.string().email(),
+          password: z.string().min(4),
         }),
       }
     }
   }, async (request, reply) => {
-    const { name, email } = request.body
-  
-    // Criação da inscrição no banco de dados
-  
-    return reply.status(201).send({ name, email })
+    const { name, email, password } = request.body
+
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    const { user } = await registerUser({ name, email, password: hashedPassword })
+
+    return reply.status(201).send(user)
   })
 }
