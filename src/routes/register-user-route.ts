@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt'
 export const registerUserRoute: FastifyPluginAsyncZod = async (app) => {
   app.post('/register', {
     schema: {
-      summary: 'Rotas do usuário',
+      summary: 'Criação do usuário',
       description: 'Rota para criação de um novo usuário',
       tags: ['user'],
       body: z.object({

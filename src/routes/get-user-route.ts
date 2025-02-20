@@ -5,7 +5,7 @@ import { getUser } from "../functions/get-user"
 export const getUserRoute: FastifyPluginAsyncZod = async (app) => {
   app.get('/user/:id', {
     schema: {
-      summary: 'Rotas do usuário',
+      summary: 'Buscando usuário',
       description: 'Rota para buscar os dados usuário',
       tags: ['user'],
       params: z.object({

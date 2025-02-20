@@ -6,8 +6,8 @@ import { userLogin } from "../functions/user-login"
 export const userLoginRoute: FastifyPluginAsyncZod = async (app) => {
   app.post('/login', {
     schema: {
-      summary: 'Rotas do usuário',
-      description: 'Rota para criação de um novo usuário',
+      summary: 'Login do usuário',
+      description: 'Rota para login do usuário',
       tags: ['user'],
       body: z.object({
         name: z.string(),
